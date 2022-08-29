@@ -107,35 +107,29 @@ const addToDOToList = () => {
 const changeToDo = () => {
     let toDoAll = document.querySelectorAll('.todo');
     const toDoList = toDoAll[toDoAll.length - 1]
-    toDoList.querySelector('.todo-change-button').addEventListener('click', () => {
-        toDoList.querySelector('.todo-text').classList.add('hidden');
-            const changeInput = document.createElement('input');
-            changeInput.classList.add('change-input');
-            changeInput.value = toDoList.querySelector('.todo-text').textContent;
-            toDoList.prepend(changeInput);
-            toDoList.querySelector('.change-input').addEventListener('change', () => {
-                toDoList.querySelector('.todo-text').textContent = changeInput.value;
-                toDoList.querySelector('.change-input').remove();
-                toDoList.querySelector('.todo-text').classList.remove('hidden');
-            })
+    toDoList.querySelector('.todo-change-button').addEventListener('click', changeFunction);
+}
+
+const changeFunction = (e) => {
+    e.target.removeEventListener('click', changeFunction);
+    const todo = e.target.closest('.todo');
+    todo.querySelector('.todo-text').classList.add('hidden');
+    const changeInput = document.createElement('input');
+    changeInput.classList.add('change-input');
+    changeInput.value = todo.querySelector('.todo-text').textContent;
+    todo.prepend(changeInput);
+    todo.querySelector('.change-input').addEventListener('change', () => {
+        todo.querySelector('.todo-text').textContent = changeInput.value;
+        todo.querySelector('.change-input').remove();
+        todo.querySelector('.todo-text').classList.remove('hidden');
+        e.target.addEventListener('click', changeFunction);
     })
 }
 
 const changeToDoAfterLS = () => {
     const toDoAll = document.querySelectorAll('.todo');
     toDoAll.forEach(elem => {
-        elem.querySelector('.todo-change-button').addEventListener('click', () => {
-            elem.querySelector('.todo-text').classList.add('hidden');
-                const changeInput = document.createElement('input');
-                changeInput.classList.add('change-input');
-                changeInput.value = elem.querySelector('.todo-text').textContent;
-                elem.prepend(changeInput);
-                elem.querySelector('.change-input').addEventListener('change', () => {
-                    elem.querySelector('.todo-text').textContent = changeInput.value;
-                    elem.querySelector('.change-input').remove();
-                    elem.querySelector('.todo-text').classList.remove('hidden');
-                })
-        })
+        elem.querySelector('.todo-change-button').addEventListener('click', changeFunction)
     })
 }
 

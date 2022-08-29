@@ -513,6 +513,7 @@ body {
 
 .visibility {
   opacity: 0;
+  pointer-events: none;
 }
 
 .time,
@@ -668,9 +669,6 @@ body {
 }
 
 .todo-input {
-  /* position: absolute;
-  bottom: 20px;
-  left: 20px; */
   align-self: flex-end;
   background-color: transparent;
   border: 0;
